@@ -61,4 +61,3 @@ app.post("/upload", (req, res) => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);
