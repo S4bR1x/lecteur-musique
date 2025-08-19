@@ -1,0 +1,116 @@
+/* Import d'une police Google pour un rendu plus moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  background: linear-gradient(135deg, #2079b4, #1a1a1a, #2a2a2a); /* bleu vif → sombre → gris foncé */
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Accent pour la barre de progression et boutons */
+.progress {
+  height: 100%;
+  width: 0%;
+  background: #3399ff; /* bleu vif plus lumineux */
+  border-radius: 5px;
+  transition: width 0.2s linear;
+}
+
+.controls button:hover {
+  color: #3399ff; /* même bleu vif au survol */
+}
+/* Style général du lecteur */
+.music-player {
+  background: #282828; /* Fond sombre comme Spotify */
+  color: white; /* Texte blanc pour contraste */
+  padding: 20px; /* Espace intérieur */
+  border-radius: 15px; /* Coins arrondis pour un effet soft */
+  width: 90%; /* Responsive */
+  max-width: 320px; /* Taille max */
+  text-align: center; /* Centre le texte */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Ombre légère pour effet relief */
+}
+
+/* Image de l'album */
+.album-cover {
+  width: 100%; /* L'image prend toute la largeur du lecteur */
+  border-radius: 10px; /* Arrondir les coins */
+  margin-bottom: 15px; /* Espacement avec le texte */
+}
+
+/* Titre de la chanson */
+.song-title {
+  font-size: 18px; /* Taille du texte */
+  font-weight: 600; /* Texte en semi-gras */
+  margin: 10px 0 5px; /* Espacement vertical */
+}
+
+/* Nom de l'artiste */
+.artist {
+  font-size: 14px; /* Plus petit que le titre */
+  opacity: 0.7; /* Légère transparence pour effet plus doux */
+}
+
+/* Barre de progression active */
+.progress {
+  height: 100%; /* Même hauteur que le conteneur */
+  width: 0%; /* Commence à 0% et augmente avec la musique */
+  background: #2079b4; /* Couleur d’accent (bleu) */
+  border-radius: 5px; /* Coins arrondis */
+  transition: width 0.2s linear;
+}
+
+/* Conteneur des boutons de contrôle */
+.controls {
+  display: flex; /* Alignement des boutons en ligne */
+  justify-content: space-around; /* Espacement égal entre les boutons */
+  align-items: center; /* Centrage vertical */
+  margin-top: 15px; /* Espacement avec la barre de progression */
+}
+
+/* Boutons (lecture, pause, suivant, précédent) */
+.controls button {
+  background: none; /* Pas de fond */
+  border: none; /* Pas de bordure */
+  color: white; /* Icônes en blanc */
+  font-size: 22px; /* Taille des icônes un peu plus grande */
+  cursor: pointer; /* Affiche un pointeur au survol */
+  transition: 0.3s; /* Animation fluide sur le changement de couleur */
+}
+/* Playlist */
+.playlist {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  max-height: 150px;
+  overflow-y: auto; /* Scroll si trop de chansons */
+}
+
+.playlist li {
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.playlist li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.playlist li.active {
+  color: #2079b4;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.1);
+}
