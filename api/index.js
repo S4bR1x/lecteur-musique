@@ -9,18 +9,20 @@ const app = express();
 
 app.use(cors());
 
-// Dossiers music et covers
-const musicDir = path.join(__dirname, "../music");
-if (!fs.existsSync(musicDir)) fs.mkdirSync(musicDir);
+// Les dossiers music et covers sont à la racine
+const projectRoot = path.join(__dirname, "..");
+const musicDir = path.join(projectRoot, "music");
+const coverDir = path.join(projectRoot, "covers");
 
-const coverDir = path.join(__dirname, "../covers");
+// Créer les dossiers s'ils n'existent pas
+if (!fs.existsSync(musicDir)) fs.mkdirSync(musicDir);
 if (!fs.existsSync(coverDir)) fs.mkdirSync(coverDir);
 
-// Fichiers statiques
+// Servir les fichiers statiques correctement
 app.use("/music", express.static(musicDir));
 app.use("/covers", express.static(coverDir));
 
-// Multer pour upload
+// Multer pour l'upload
 const storage = multer.diskStorage({
   destination: musicDir,
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
@@ -44,7 +46,7 @@ app.get("/songs", (req, res) => {
       .filter((file) => file.toLowerCase().endsWith(".mp3"))
       .map((file) => ({
         name: file.replace(/\.mp3$/i, ""),
-        url: `/music/${file}`,
+        url: `/music/${file}`, // URL côté frontend reste la même
         artist: songData[file]?.artist || "Unknown",
         cover: songData[file]?.cover || "/covers/default.jpg",
       }));
