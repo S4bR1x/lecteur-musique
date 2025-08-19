@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 // Racine du projet
-const projectRoot = path.join(__dirname, "public");
+const projectRoot = path.join(__dirname, "..", "public"); 
 
 // Dossiers statiques
 const musicDir = path.join(projectRoot, "music");
