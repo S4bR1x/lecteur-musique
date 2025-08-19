@@ -1,9 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const multer = require("multer");
 const fs = require("fs");
-const serverless = require("serverless-http");
 
 const app = express();
 app.use(cors());
@@ -15,17 +13,6 @@ const projectRoot = path.join(__dirname, "..", "public");
 const musicDir = path.join(projectRoot, "music");
 const coverDir = path.join(projectRoot, "covers");
 
-// Créer les dossiers si absent
-if (!fs.existsSync(musicDir)) fs.mkdirSync(musicDir);
-if (!fs.existsSync(coverDir)) fs.mkdirSync(coverDir);
-
-// Multer pour l'upload (local uniquement)
-const storage = multer.diskStorage({
-  destination: musicDir,
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
-const upload = multer({ storage });
-
 // Données chansons (à adapter selon tes fichiers)
 const songData = {
   "billie eillish.mp3": { artist: "Billie Eillish", cover: "Couverture Billie Eilish.jpg" },
@@ -34,8 +21,9 @@ const songData = {
   "SOIS PAS TIMIDE.mp3": { artist: "Gims", cover: "Sois Pas Timide Cover.jpg" },
 };
 
-// Route /songs
+// Route /songs : renvoie la liste des fichiers mp3 présents dans public/music
 app.get("/songs", (req, res) => {
+  const musicDir = path.join(__dirname, "..", "public", "music");
   fs.readdir(musicDir, (err, files) => {
     if (err) return res.status(500).json({ error: "Erreur lecture dossier" });
 
@@ -52,12 +40,5 @@ app.get("/songs", (req, res) => {
   });
 });
 
-// Route upload (local uniquement)
-app.post("/upload", (req, res) => {
-  upload.single("file")(req, res, function(err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: "Fichier audio uploadé !", filename: req.file.filename });
-  });
-});
-
+// Export pour Vercel
 module.exports = app;
