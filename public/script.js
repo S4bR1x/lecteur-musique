@@ -35,14 +35,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Erreur récupération chansons :", error);
   }
 
-  function setSong(index) {
+  async function setSong(index) {
     if (!songs.length) return;
     currentIndex = index;
     const song = songs[currentIndex];
-    audio.src = `/music/${song.filename}`;
+    audio.src = song.filename; // Le chemin est déjà complet depuis l'API
     songTitle.textContent = song.name;
     artistName.textContent = song.artist;
-    albumCover.src = `/covers/${song.cover}`;
+    albumCover.src = song.cover; // Le chemin est déjà complet depuis l'API
     updateActiveSong();
   }
 
