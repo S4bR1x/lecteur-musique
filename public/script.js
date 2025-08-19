@@ -88,14 +88,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     playSong();
   });
 
-  // Barre de progression
   audio.addEventListener("timeupdate", () => {
-    if (audio.duration) progress.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+    if (audio.duration) {
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+    }
   });
 
   progressContainer.addEventListener("click", (e) => {
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
-    audio.currentTime = (clickX / width) * audio.duration;
+    const newTime = (clickX / width) * audio.duration;
+    audio.currentTime = newTime;
   });
 });
