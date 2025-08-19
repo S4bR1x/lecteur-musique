@@ -7,12 +7,14 @@ const app = express();
 app.use(cors());
 
 // Servir les fichiers statiques depuis le dossier public
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/music', express.static(path.join(__dirname, 'music')));
+app.use('/covers', express.static(path.join(__dirname, 'covers')));
 
 // Route /songs
 app.get("/songs", (req, res) => {
-  const musicDir = path.join(__dirname, '..', 'public', 'music');
-  const coversDir = path.join(__dirname, '..', 'public', 'covers');
+  const musicDir = path.join(__dirname, 'music');
+  const coversDir = path.join(__dirname, 'covers');
   
   fs.readdir(musicDir, (err, files) => {
     if (err) {
@@ -53,9 +55,11 @@ app.get("/songs", (req, res) => {
 });
 
 // Route pour la page d'accueil
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
