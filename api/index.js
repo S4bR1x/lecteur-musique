@@ -9,11 +9,11 @@ const app = express();
 app.use(cors());
 
 // Racine du projet
-const projectRoot = path.join(__dirname, "..");
+const projectRoot = path.join(__dirname, "public");
 
 // Dossiers statiques
-const musicDir = path.join(projectRoot, "public/music");
-const coverDir = path.join(projectRoot, "public/covers");
+const musicDir = path.join(projectRoot, "music");
+const coverDir = path.join(projectRoot, "covers");
 
 // Créer les dossiers si absent
 if (!fs.existsSync(musicDir)) fs.mkdirSync(musicDir);
