@@ -6,26 +6,19 @@ const fs = require("fs");
 const app = express();
 app.use(cors());
 
-// Racine du projet
-const projectRoot = path.join(__dirname, "..", "public"); 
+// Route /songs
+app.get("/", (req, res) => {
+  const musicDir = path.join(process.cwd(), "public", "music"); // chemin sûr sur Vercel
 
-// Dossiers statiques
-const musicDir = path.join(projectRoot, "music");
-const coverDir = path.join(projectRoot, "covers");
-
-// Données chansons (à adapter selon tes fichiers)
-const songData = {
-  "billie eillish.mp3": { artist: "Billie Eillish", cover: "Couverture Billie Eilish.jpg" },
-  "it's not over until I win.mp3": { artist: "Motivation", cover: "Hommage à Muhammad Ali couverture.webp" },
-  "Lady Gaga, Bruno Mars .mp3": { artist: "Bruno Mars", cover: "Lady Gaga Bruno Mars cover.webp" },
-  "SOIS PAS TIMIDE.mp3": { artist: "Gims", cover: "Sois Pas Timide Cover.jpg" },
-};
-
-// Route /songs : renvoie la liste des fichiers mp3 présents dans public/music
-app.get("/songs", (req, res) => {
-  const musicDir = path.join(__dirname, "..", "public", "music");
   fs.readdir(musicDir, (err, files) => {
     if (err) return res.status(500).json({ error: "Erreur lecture dossier" });
+
+    const songData = {
+      "billie eillish.mp3": { artist: "Billie Eillish", cover: "Couverture Billie Eilish.jpg" },
+      "it's not over until I win.mp3": { artist: "Motivation", cover: "Hommage à Muhammad Ali couverture.webp" },
+      "Lady Gaga, Bruno Mars .mp3": { artist: "Bruno Mars", cover: "Lady Gaga Bruno Mars cover.webp" },
+      "SOIS PAS TIMIDE.mp3": { artist: "Gims", cover: "Sois Pas Timide Cover.jpg" },
+    };
 
     const songs = files
       .filter(file => file.toLowerCase().endsWith(".mp3"))
@@ -40,5 +33,4 @@ app.get("/songs", (req, res) => {
   });
 });
 
-// Export pour Vercel
 module.exports = app;
