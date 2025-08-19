@@ -19,10 +19,6 @@ const coverDir = path.join(projectRoot, "covers");
 if (!fs.existsSync(musicDir)) fs.mkdirSync(musicDir);
 if (!fs.existsSync(coverDir)) fs.mkdirSync(coverDir);
 
-// Servir les fichiers statiques
-app.use("/music", express.static(musicDir));
-app.use("/covers", express.static(coverDir));
-
 // Multer pour l'upload (local uniquement)
 const storage = multer.diskStorage({
   destination: musicDir,
