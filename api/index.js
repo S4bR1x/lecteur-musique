@@ -43,13 +43,13 @@ app.get("/songs", (req, res) => {
     if (err) return res.status(500).json({ error: "Erreur lecture dossier" });
 
     const songs = files
-      .filter((file) => file.toLowerCase().endsWith(".mp3"))
-      .map((file) => ({
-        name: file.replace(/\.mp3$/i, ""),
-        url: `/music/${file}`, // URL côté frontend reste la même
-        artist: songData[file]?.artist || "Unknown",
-        cover: songData[file]?.cover || "/covers/default.jpg",
-      }));
+    .filter(file => file.toLowerCase().endsWith(".mp3"))
+    .map(file => ({
+      name: file.replace(/\.mp3$/i, ""),
+      filename: file, // pour le frontend
+      artist: songData[file]?.artist || "Unknown",
+      cover: songData[file]?.cover || "default.jpg" // on récupère juste le nom du fichier
+    }));
 
     res.json(songs);
   });

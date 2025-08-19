@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!songs.length) return;
       currentIndex = index;
       const song = songs[currentIndex];
-      audio.src = song.url;
+      audio.src = `/music/${song.filename || song.name + ".mp3"}`; // MP3 depuis public/music
       songTitle.textContent = song.name;
       artistName.textContent = song.artist;
-      albumCover.src = song.cover;
+      albumCover.src = `/covers/${song.cover.split('/').pop()}`; // cover depuis public/covers
       updateActiveSong();
     }
   
