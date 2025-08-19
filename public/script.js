@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let currentIndex = 0;
 
   try {
-    const response = await fetch("/api/songs"); // API serverless
+    const response = await fetch("/songs"); // API endpoint
     songs = await response.json();
 
     playlist.innerHTML = "";
